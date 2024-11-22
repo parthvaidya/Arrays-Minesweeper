@@ -50,7 +50,7 @@ namespace Gameplay
             board_image->update();
         }
 
-        void BoardView::render()
+        void BoardView::render() //added render
         {
             background_image->render();
             board_image->render();
