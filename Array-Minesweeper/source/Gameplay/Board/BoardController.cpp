@@ -45,7 +45,7 @@ namespace Gameplay
 		void BoardController::initializeCells()
 		{
 			float cell_width = board_view->getCellWidth();
-			float cell_height = board_view->getCellHeight();
+			float cell_height = board_view->getCellHeight(); //added get cell width
 
 			for (int a = 0; a < number_of_rows; a++)
 			{
