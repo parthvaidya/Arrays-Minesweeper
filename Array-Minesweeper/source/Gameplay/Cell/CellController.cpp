@@ -40,5 +40,34 @@ namespace Gameplay
 			cell_view->render();
 		}
 
+		void CellController::flagCell()
+		{
+			if (ServiceLocator::getInstance()->getBoardService()->getBoardState() == Gameplay::Board::BoardState::COMPLETED)
+			{
+				cell_model->setCellState(CellState::FLAGGED);
+				return;
+			}
+
+			switch (cell_model->getCellState())
+			{
+			case::Gameplay::Cell::CellState::FLAGGED:
+				cell_model->setCellState(CellState::HIDDEN);
+				break;
+			case::Gameplay::Cell::CellState::HIDDEN:
+				cell_model->setCellState(CellState::FLAGGED);
+				break;
+			}
+		}
+
+		void CellController::openCell()
+		{
+			setCellState(CellState::OPEN);
+		}
+
+		bool CellController::canOpenCell()
+		{
+			return cell_model->getCellState() != CellState::FLAGGED && cell_model->getCellState() != CellState::OPEN;
+		}
+
 		
 }

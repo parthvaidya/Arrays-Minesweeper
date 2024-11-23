@@ -6,40 +6,65 @@
 #include "../../header/Gameplay/Cell/CellController.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
-#include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Sound/SoundService.h"
 
 
 
-public class CellView {
-    private Button cell_button;
-    private final float tile_size = 32;
+namespace Gameplay
+{
+    namespace Cell
+    {
+        using namespace UI::UIElement;
+        using namespace Global;
+        using namespace Sound;
 
-    // Lifecycle method: Initialize
-    public void initialize() {
-        float size = tile_size * 3;
-        initializeButtonImage(size, size);
-    }
-
-    // Method to initialize the button's size and properties
-    private void initializeButtonImage(float width, float height) {
-        cell_button = new Button();  // Assuming Button is a custom class
-        cell_button.setWidth(width);
-        cell_button.setHeight(height);
-        // Add additional properties or styles here if needed
-    }
-
-    // Lifecycle method: Update
-    public void update(float deltaTime) {
-        if (cell_button != null) {
-            cell_button.update(deltaTime); // Delegates to button's update logic
+        CellView::CellView(CellController* controller)
+        {
+            cell_controller = controller;
+            cell_button = new ButtonView();
         }
-    }
 
-    // Lifecycle method: Render
-    public void render() {
-        if (cell_button != null) {
-            cell_button.render(); // Delegates to button's render logic
+        CellView::~CellView() { delete (cell_button); }
+
+        void CellView::initialize(float width, float height)
+        {
+            initializeButtonImage(width, height);
+        }
+
+        void CellView::initializeButtonImage(float width, float height)
+        {
+            sf::Vector2f cell_screen_position = getCellScreenPosition(width, height);
+
+            cell_button->initialize("Cell", Config::cells_texture_path, width * slice_count, height, cell_screen_position);
+
+            registerButtonCallback();
+        }
+
+        sf::Vector2f CellView::getCellScreenPosition(float width, float height)
+        {
+            sf::Vector2i cell_index = cell_controller->getCellPosition();
+
+            float x_screen_position = cell_left_offset + cell_index.y * width;
+            float y_screen_position = cell_top_offset + cell_index.x * height;
+
+            return sf::Vector2f(x_screen_position, y_screen_position);
+        }
+
+        void CellView::update()
+        {
+            cell_button->update();
+        }
+
+        void CellView::render()
+        {
+            setCellTexture();
+            cell_button->render();
+        }
+
+       
+        void CellView::cellButtonCallback(ButtonType button_type)
+        {
+            ServiceLocator::getInstance()->getBoardService()->processCellInput(cell_controller, button_type);
         }
     }
 }
