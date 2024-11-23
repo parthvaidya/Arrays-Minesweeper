@@ -13,6 +13,7 @@ namespace Gameplay
 		using namespace Global;
 		using namespace Sound;
 
+
 		CellController::CellController(sf::Vector2i grid_position)
 		{
 			cell_model = new CellModel(grid_position);
