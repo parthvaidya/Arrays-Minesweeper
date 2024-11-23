@@ -6,73 +6,38 @@
 
 
 
-public class CellController {
-    private CellView cellView;
+namespace Gameplay
+{
+	namespace Cell
+	{
+		using namespace Global;
+		using namespace Sound;
 
-    // Lifecycle method: Initialize
-    public void initialize() {
-        cellView = new CellView();
-        cellView.initialize();
-    }
+		CellController::CellController(sf::Vector2i grid_position)
+		{
+			cell_model = new CellModel(grid_position);
+			cell_view = new CellView(this);
+		}
 
-    // Lifecycle method: Update
-    public void update(float deltaTime) {
-        if (cellView != null) {
-            cellView.update(deltaTime);
-        }
-    }
+		CellController::~CellController()
+		{
+			destroy();
+		}
 
-    // Lifecycle method: Render
-    public void render() {
-        if (cellView != null) {
-            cellView.render();
-        }
-    }
+		void CellController::initialize(float cell_width, float cell_height)
+		{
+			cell_view->initialize(cell_width, cell_height);
+		}
 
-    private CellView cellView;
-    private CellModel cellModel;
+		void CellController::update()
+		{
+			cell_view->update();
+		}
 
-    // Constructor
-    public CellController() {
-        cellModel = new CellModel(); // Initialize the model
-    }
+		void CellController::render()
+		{
+			cell_view->render();
+		}
 
-    // Lifecycle method: Initialize
-    public void initialize() {
-        cellView = new CellView();
-        cellView.initialize();
-    }
-
-    // Getter and Setter for CellValue
-    public CellModel.CellValue getCellValue() {
-        return cellModel.getCellValue();
-    }
-
-    public void setCellValue(CellModel.CellValue cell_value) {
-        cellModel.setCellValue(cell_value);
-    }
-
-    // Getter and Setter for CellState
-    public CellModel.CellState getCellState() {
-        return cellModel.getCellState();
-    }
-
-    public void setCellState(CellModel.CellState cell_state) {
-        cellModel.setCellState(cell_state);
-    }
-
-    // Lifecycle method: Update
-    public void update(float deltaTime) {
-        if (cellView != null) {
-            cellView.update(deltaTime);
-        }
-    }
-
-    // Lifecycle method: Render
-    public void render() {
-        if (cellView != null) {
-            cellView.setCellTexture(cellModel.getCellState(), cellModel.getCellValue());
-            cellView.render();
-        }
-    }
+		
 }
