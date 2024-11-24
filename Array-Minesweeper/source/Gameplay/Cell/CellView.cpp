@@ -18,6 +18,7 @@ namespace Gameplay
         using namespace Global;
         using namespace Sound;
 
+
         CellView::CellView(CellController* controller)
         {
             cell_controller = controller;

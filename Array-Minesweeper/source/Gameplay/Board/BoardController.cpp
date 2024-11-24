@@ -263,7 +263,7 @@ namespace Gameplay
 			}
 		}
 
-		bool BoardController::isValidCellPosition(sf::Vector2i cell_position)
+		bool BoardController::isValidCellPosition(sf::Vector2i cell_position) //added
 		{
 			return (cell_position.x >= 0 && cell_position.y >= 0 && cell_position.x < number_of_colums && cell_position.y < number_of_rows);
 		}
