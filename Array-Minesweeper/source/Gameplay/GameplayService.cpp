@@ -33,11 +33,7 @@ namespace Gameplay
 		gameplay_controller->render();
 	}
 
-	void GameplayService::startGame()
-	{
-		gameplay_controller->restart();
-	}
-
+	
 	
 
 	int GameplayService::getMinesCount()
@@ -45,4 +41,9 @@ namespace Gameplay
 		return gameplay_controller->getMinesCount();
 	}
 
+
+	void GameplayService::startGame()
+	{
+		gameplay_controller->restart();
+	}
 }
