@@ -258,7 +258,7 @@ namespace Gameplay
 			{
 				for (int b = 0; b < number_of_colums; ++b)
 				{
-					board[a][b]->openCell();
+					Board[a][b]->openCell();
 				}
 			}
 		}
