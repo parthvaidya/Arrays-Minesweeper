@@ -58,6 +58,7 @@ namespace Gameplay
 				break;
 			}
 		}
+
 		void CellController::openCell()
 		{
 			setCellState(CellState::OPEN);

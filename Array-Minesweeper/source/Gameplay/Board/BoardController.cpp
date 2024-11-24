@@ -170,21 +170,6 @@ namespace Gameplay
 			board[cell_position.x][cell_position.y]->flagCell();
 		}
 
-		
-
-		void BoardController::flagAllMines()
-		{
-			for (int row = 0; row < number_of_rows; ++row)
-			{
-				for (int col = 0; col < number_of_colums; ++col)
-				{
-					if (board[row][col]->getCellValue() == CellValue::MINE && board[row][col]->getCellState() != CellState::FLAGGED)
-						flagCell(sf::Vector2i(row, col));
-				}
-			}
-		}
-
-
 		void BoardController::openCell(sf::Vector2i cell_position)
 		{
 			if (board[cell_position.x][cell_position.y]->canOpenCell())
@@ -202,6 +187,19 @@ namespace Gameplay
 					ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::WON);
 			}
 		}
+
+		void BoardController::flagAllMines()
+		{
+			for (int row = 0; row < number_of_rows; ++row)
+			{
+				for (int col = 0; col < number_of_colums; ++col)
+				{
+					if (board[row][col]->getCellValue() == CellValue::MINE && board[row][col]->getCellState() != CellState::FLAGGED)
+						flagCell(sf::Vector2i(row, col));
+				}
+			}
+		}
+
 		void BoardController::processCellValue(sf::Vector2i cell_position)
 		{
 			switch (board[cell_position.x][cell_position.y]->getCellValue())
