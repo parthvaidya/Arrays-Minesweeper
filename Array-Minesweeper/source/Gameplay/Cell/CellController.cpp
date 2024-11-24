@@ -59,7 +59,7 @@ namespace Gameplay
 			}
 		}
 
-		void CellController::openCell()
+		void CellController::openCell() //added
 		{
 			setCellState(CellState::OPEN);
 		}
