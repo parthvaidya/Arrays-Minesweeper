@@ -4,15 +4,12 @@
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Global/ServiceLocator.h"
 
-
-
 namespace Gameplay
 {
 	namespace Cell
 	{
 		using namespace Global;
 		using namespace Sound;
-
 
 		CellController::CellController(sf::Vector2i grid_position)
 		{
@@ -59,7 +56,7 @@ namespace Gameplay
 			}
 		}
 
-		void CellController::openCell() //added
+		void CellController::openCell()
 		{
 			setCellState(CellState::OPEN);
 		}
@@ -69,5 +66,40 @@ namespace Gameplay
 			return cell_model->getCellState() != CellState::FLAGGED && cell_model->getCellState() != CellState::OPEN;
 		}
 
-		
+		CellState CellController::getCellState()
+		{
+			return cell_model->getCellState();
+		}
+
+		void CellController::setCellState(CellState state)
+		{
+			cell_model->setCellState(state);
+		}
+
+		CellValue CellController::getCellValue()
+		{
+			return cell_model->getCellValue();
+		}
+
+		void CellController::setCellValue(CellValue value)
+		{
+			cell_model->setCellValue(value);
+		}
+
+		sf::Vector2i CellController::getCellPosition()
+		{
+			return cell_model->getCellPosition();
+		}
+
+		void CellController::reset()
+		{
+			cell_model->reset();
+		}
+
+		void CellController::destroy()
+		{
+			delete (cell_view);
+			delete (cell_model);
+		}
+	}
 }

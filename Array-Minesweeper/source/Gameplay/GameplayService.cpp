@@ -33,17 +33,28 @@ namespace Gameplay
 		gameplay_controller->render();
 	}
 
-	
-	
+	void GameplayService::startGame()
+	{
+		gameplay_controller->restart();
+	}
+
+	void GameplayService::endGame(GameResult result)
+	{
+		gameplay_controller->endGame(result);
+	}
 
 	int GameplayService::getMinesCount()
 	{
 		return gameplay_controller->getMinesCount();
 	}
 
-
-	void GameplayService::startGame()
+	float GameplayService::getRemainingTime()
 	{
-		gameplay_controller->restart();
+		return gameplay_controller->getRemainingTime();
+	}
+
+	void GameplayService::destroy()
+	{
+		delete(gameplay_controller);
 	}
 }

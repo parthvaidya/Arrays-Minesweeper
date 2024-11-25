@@ -170,7 +170,7 @@
     <ClInclude Include="header\Gameplay\GameplayController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\Gameplay\GamplayService.h">
+    <ClInclude Include="header\Gameplay\GameplayService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

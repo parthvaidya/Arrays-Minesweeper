@@ -1,6 +1,5 @@
-#pragma once
 #include <sfml/Graphics.hpp>
-//#include "../../header/Gameplay/Cell/CellController.h"
+#include "../../header/Gameplay/Cell/CellController.h"
 #include "../../header/UI/UIElement/ButtonView.h"
 #include <random>
 
@@ -32,8 +31,6 @@ namespace Gameplay
             void render();
 
             void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
-
-            //void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
             void reset();
 
             BoardState getBoardState();
@@ -47,7 +44,7 @@ namespace Gameplay
 
         private:
             BoardView* board_view;
-            //Cell::CellController* board[number_of_rows][number_of_colums];
+            Cell::CellController* board[number_of_rows][number_of_colums];
 
             // To generate random values.
             std::default_random_engine random_engine;
@@ -70,7 +67,7 @@ namespace Gameplay
             void openCell(sf::Vector2i cell_position);
             bool areAllCellOpen();
 
-            void processCellValue(sf::Vector2i cell_position); //added
+            void processCellValue(sf::Vector2i cell_position);
             void processEmptyCell(sf::Vector2i cell_position);
             void processMineCell(sf::Vector2i cell_position);
 

@@ -36,7 +36,7 @@ namespace Gameplay
 			board_controller->render();
 		}
 
-		public BoardService::processCellInput(CellController* cell_controller, ButtonType button_type)
+		void BoardService::processCellInput(CellController* cell_controller, ButtonType button_type)
 		{
 			board_controller->processCellInput(cell_controller, button_type);
 		}

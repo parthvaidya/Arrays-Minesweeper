@@ -20,7 +20,13 @@ namespace Gameplay
         board_service = ServiceLocator::getInstance()->getBoardService();
     }
 
-   
+    void GameplayController::update()
+    {
+        updateRemainingTime();
+
+        if (isTimeOver())
+            endGame(GameResult::LOST);
+    }
 
     void GameplayController::render() {  }
 
@@ -29,13 +35,6 @@ namespace Gameplay
         if (game_result == GameResult::WON)
             return;
         remaining_time -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
-    }
-    void GameplayController::update()
-    {
-        updateRemainingTime();
-
-        if (isTimeOver())
-            endGame(GameResult::LOST);
     }
 
     bool GameplayController::isTimeOver() { return (remaining_time <= 1); }

@@ -8,7 +8,7 @@ namespace Gameplay
     namespace Board
     {
         using namespace UI::UIElement;
-        //using namespace Cell;
+        using namespace Cell;
         using namespace Global;
 
         BoardView::BoardView(BoardController* controller)
@@ -50,7 +50,7 @@ namespace Gameplay
             board_image->update();
         }
 
-        void BoardView::render() //added render
+        void BoardView::render()
         {
             background_image->render();
             board_image->render();

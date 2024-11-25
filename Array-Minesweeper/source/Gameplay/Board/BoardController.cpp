@@ -1,7 +1,7 @@
 #include "../../header/Gameplay/Board/BoardController.h"
-//#include "../../header/Gameplay/Board/BoardView.h"
-//#include "../../header/Gameplay/Cell/CellController.h"
-//#include "../../header/Gameplay/Cell/CellModel.h"
+#include "../../header/Gameplay/Board/BoardView.h"
+#include "../../header/Gameplay/Cell/CellController.h"
+#include "../../header/Gameplay/Cell/CellModel.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Sound/SoundService.h"
 
@@ -9,13 +9,13 @@ namespace Gameplay
 {
 	namespace Board
 	{
-		//using namespace Cell;
+		using namespace Cell;
 		using namespace Global;
 		using namespace Sound;
 
 		BoardController::BoardController() : random_engine(random_device())
 		{
-			//board_view = new BoardView(this);
+			board_view = new BoardView(this);
 			createBoard();
 		}
 
@@ -45,7 +45,7 @@ namespace Gameplay
 		void BoardController::initializeCells()
 		{
 			float cell_width = board_view->getCellWidth();
-			float cell_height = board_view->getCellHeight(); //added get cell width
+			float cell_height = board_view->getCellHeight();
 
 			for (int a = 0; a < number_of_rows; a++)
 			{
@@ -200,9 +200,27 @@ namespace Gameplay
 			}
 		}
 
-		
+		void BoardController::processCellValue(sf::Vector2i cell_position)
+		{
+			switch (board[cell_position.x][cell_position.y]->getCellValue())
+			{
+			case::Gameplay::Cell::CellValue::EMPTY:
+				processEmptyCell(cell_position);
+				break;
+			case::Gameplay::Cell::CellValue::MINE:
+				processMineCell(cell_position);
+				break;
+			default:
+				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+				break;
+			}
+		}
 
-		
+		void BoardController::processEmptyCell(sf::Vector2i cell_position)
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+			openEmptyCells(cell_position);
+		}
 
 		void BoardController::processMineCell(sf::Vector2i cell_position)
 		{
@@ -234,41 +252,18 @@ namespace Gameplay
 			}
 		}
 
-
-		void BoardController::processEmptyCell(sf::Vector2i cell_position)
-		{
-			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-			openEmptyCells(cell_position);
-		}
-
-		void BoardController::processCellValue(sf::Vector2i cell_position)
-		{
-			switch (board[cell_position.x][cell_position.y]->getCellValue())
-			{
-			case::Gameplay::Cell::CellValue::EMPTY:
-				processEmptyCell(cell_position);
-				break;
-			case::Gameplay::Cell::CellValue::MINE:
-				processMineCell(cell_position);
-				break;
-			default:
-				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-				break;
-			}
-		}
-
 		void BoardController::openAllCells()
 		{
 			for (int a = 0; a < number_of_rows; ++a)
 			{
 				for (int b = 0; b < number_of_colums; ++b)
 				{
-					Board[a][b]->openCell();
+					board[a][b]->openCell();
 				}
 			}
 		}
 
-		bool BoardController::isValidCellPosition(sf::Vector2i cell_position) //added
+		bool BoardController::isValidCellPosition(sf::Vector2i cell_position)
 		{
 			return (cell_position.x >= 0 && cell_position.y >= 0 && cell_position.x < number_of_colums && cell_position.y < number_of_rows);
 		}
