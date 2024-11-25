@@ -202,11 +202,7 @@ namespace Gameplay
 
 		
 
-		void BoardController::processEmptyCell(sf::Vector2i cell_position)
-		{
-			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-			openEmptyCells(cell_position);
-		}
+		
 
 		void BoardController::processMineCell(sf::Vector2i cell_position)
 		{
@@ -238,6 +234,12 @@ namespace Gameplay
 			}
 		}
 
+
+		void BoardController::processEmptyCell(sf::Vector2i cell_position)
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+			openEmptyCells(cell_position);
+		}
 
 		void BoardController::processCellValue(sf::Vector2i cell_position)
 		{
