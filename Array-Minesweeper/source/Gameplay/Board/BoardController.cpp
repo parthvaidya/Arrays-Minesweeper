@@ -200,21 +200,7 @@ namespace Gameplay
 			}
 		}
 
-		void BoardController::processCellValue(sf::Vector2i cell_position)
-		{
-			switch (board[cell_position.x][cell_position.y]->getCellValue())
-			{
-			case::Gameplay::Cell::CellValue::EMPTY:
-				processEmptyCell(cell_position);
-				break;
-			case::Gameplay::Cell::CellValue::MINE:
-				processMineCell(cell_position);
-				break;
-			default:
-				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-				break;
-			}
-		}
+		
 
 		void BoardController::processEmptyCell(sf::Vector2i cell_position)
 		{
@@ -249,6 +235,23 @@ namespace Gameplay
 					sf::Vector2i next_cell_position = sf::Vector2i(a + cell_position.x, b + cell_position.y);
 					openCell(next_cell_position);
 				}
+			}
+		}
+
+
+		void BoardController::processCellValue(sf::Vector2i cell_position)
+		{
+			switch (board[cell_position.x][cell_position.y]->getCellValue())
+			{
+			case::Gameplay::Cell::CellValue::EMPTY:
+				processEmptyCell(cell_position);
+				break;
+			case::Gameplay::Cell::CellValue::MINE:
+				processMineCell(cell_position);
+				break;
+			default:
+				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+				break;
 			}
 		}
 
